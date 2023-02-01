@@ -10,14 +10,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.webmobtechexmp.R
 import com.example.webmobtechexmp.model.RandomUserResponse
+import com.example.webmobtechexmp.model.User
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.*
 
-class UserAdapter(private val context: Context) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter(private val context: Context) :
+    RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    private val users = mutableListOf<com.example.webmobtechexmp.model.Result>()
+    private val users = mutableListOf<User>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newUsers: List<com.example.webmobtechexmp.model.Result>) {
+    fun submitList(newUsers: List<User>) {
         users.addAll(newUsers)
         notifyDataSetChanged()
     }
@@ -44,14 +48,23 @@ class UserAdapter(private val context: Context) : RecyclerView.Adapter<UserAdapt
         private val tvUsername = itemView.findViewById<TextView>(R.id.tv_username)
         private val tvPhone = itemView.findViewById<TextView>(R.id.tv_phone)
 
-        fun bind(user: com.example.webmobtechexmp.model.Result) {
+        fun bind(user: User) {
             Picasso.get().load(user.picture.thumbnail).into(ivProfilePicture)
             tvName.text = "Name : ${user.name.first}${user.name.last}"
             tvEmail.text = "Email : " + user.email
             tvCity.text = "Street : " + user.location.street.name
-            tvDob.text = "Street : " + user.dob.date
-            tvUsername.text = "Street : " + user.login.username
-            tvPhone.text = "Street : " + user.phone
+            tvDob.text = "DOB : " + getDOB(user.dob.date)
+            tvUsername.text = "Username : " + user.login.username
+            tvPhone.text = "Phone : " + user.phone
+        }
+
+        private fun getDOB(date: String): String {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+            val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+            val date = inputFormat.parse(date)
+            val formattedDate = outputFormat.format(date)
+
+            return formattedDate
         }
     }
 }

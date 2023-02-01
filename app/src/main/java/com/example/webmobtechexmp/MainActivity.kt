@@ -1,6 +1,7 @@
 package com.example.webmobtechexmp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -92,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val users = response.body()?.results
                             if (users != null) {
+                                Log.e("TAG", "onResponse: ${users.size}", )
                                 adapter.submitList(users)
                             }
                         } else {
