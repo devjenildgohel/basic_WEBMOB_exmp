@@ -1,7 +1,11 @@
 package com.example.webmobtechexmp.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 data class RandomUserResponse(val results: List<User>, val info: Info)
 
+@Entity
 data class User(
     val gender: String,
     val name: Name,
@@ -12,6 +16,7 @@ data class User(
     val registered: Registered,
     val phone: String,
     val cell: String,
+    @PrimaryKey
     val id: Id,
     val picture: Picture,
     val nat: String

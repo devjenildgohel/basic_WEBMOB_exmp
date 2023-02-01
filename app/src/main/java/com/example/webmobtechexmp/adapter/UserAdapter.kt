@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.webmobtechexmp.R
-import com.example.webmobtechexmp.model.RandomUserResponse
 import com.example.webmobtechexmp.model.User
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
@@ -50,7 +49,7 @@ class UserAdapter(private val context: Context) :
 
         fun bind(user: User) {
             Picasso.get().load(user.picture.thumbnail).into(ivProfilePicture)
-            tvName.text = "Name : ${user.name.first}${user.name.last}"
+            tvName.text = "Name : ${user.name.first} ${user.name.last}"
             tvEmail.text = "Email : " + user.email
             tvCity.text = "Street : " + user.location.street.name
             tvDob.text = "DOB : " + getDOB(user.dob.date)
